@@ -6,6 +6,10 @@ Note: The Python script youtube-dl can download and store streams.
 
 Problems: Twitch does the pagination online, that means that we cannot access the full list. Entries may be twice in there or not even show up at all. The faster we scrape the list the better.
 
+Analysis of rank to viewer_count shows typical power law distributions:
+
+[[rank2viewercount.png|alt=rank to viewercount]]
+
 ## How to setup
 
 First get a client ID from Twitch, then put it into the file `credentials.py` or create a text file `client_id.txt` in the project root folder with just the client id in a single line. `client_id.txt` will be read by `credentials.py` on import.
