@@ -8,7 +8,9 @@ Problems: Twitch does the pagination online, that means that we cannot access th
 
 Analysis of rank to viewer_count shows typical power law distributions:
 
-[[https://github.com/dermotte/twitch-reader/blob/master/rank2viewercount.png|alt=rank to viewercount]]
+<p align="center">
+  <img src="https://github.com/dermotte/twitch-reader/raw/master/rank2viewercount.png"/>
+</p>
 
 ## How to setup
 
