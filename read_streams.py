@@ -13,7 +13,9 @@ from twitchreader.credentials import client_id
 """
 current_dt = datetime.datetime.utcnow()
 # game_id = 33214  # Fortnite
-game_id = 32959  # Heroes of the Storm
+# game_id = 18122  # WoW
+game_id = 66170  # Warframe
+# game_id = 32959  # Heroes of the Storm
 
 # preparing the file for output ...
 with codecs.open("streams_"+str(current_dt)+".json", "w", "utf-8") as file:
@@ -37,7 +39,7 @@ with codecs.open("streams_"+str(current_dt)+".json", "w", "utf-8") as file:
     cursor = (json_data["pagination"]["cursor"]) # cursor for the next page ...
 
     # fetch the next x pages ...
-    for i in range(99):
+    for i in range(19):
         result = requests.get(endpoint + "&after=" + cursor, headers=headers)
         json_data = result.json()
         # get out the viewer count ...
@@ -48,7 +50,7 @@ with codecs.open("streams_"+str(current_dt)+".json", "w", "utf-8") as file:
             cursor = (json_data["pagination"]["cursor"]) # cursor for the next page ...
         else:
             break
-        time.sleep(1) # should be 3 according to the Twitch regulations!
+        time.sleep(3) # should be 3 according to the Twitch regulations!
     # closing file
     json.dump(all_data, file)
     file.close()
