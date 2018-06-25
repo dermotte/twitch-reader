@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Observer Twitch Chat</title>
+    <!--Sourcemap: //cdn.tmijs.org/js/1.2.1/tmi.js.map-->
+    <script src="//cdn.tmijs.org/js/1.2.1/tmi.min.js" integrity="sha384-eE0n7sm1W7DOUI2Xh5I4qSpZTe6hupAO0ovLfqEy0yVJtGRBNfssdmjbJhEYm6Bw" crossorigin="anonymous"></script>
+</head>
+<body>
+<script language="JavaScript">
+/*
+    This basically works with node.js too ...
+    Working example for the browser :-)
+    ToDos ... sync the text messages to the video stream somehow for later storage.
+*/
+
+var options = {
+    options: {
+        debug: true
+    },
+    connection: {
+        reconnect: true,
+    },
+    channels: ["#dakotaz"]
+};
+
+var client = new tmi.client(options);
+
+// Connect the client to the server..
+client.connect();
+
+client.on("message", function (channel, userstate, message, self) {
+    // Don't listen to my own messages..
+    if (self) return;
+
+    // Handle different message types..
+    console.log(message);
+    switch(userstate["message-type"]) {
+        case "action":
+            // This is an action message..
+            break;
+        case "chat":
+            // This is a chat message..
+            break;
+        case "whisper":
+            // This is a whisper..
+            break;
+        default:
+            // Something else ?
+            break;
+    }
+});
+</script>
+
+</body>
+</html>

@@ -17,3 +17,11 @@ Games and game ids can be queried using `read_top_games.py`.
 ## How to setup
 
 First get a client ID from Twitch, then put it into the file `credentials.py` or create a text file `client_id.txt` in the project root folder with just the client id in a single line. `client_id.txt` will be read by `credentials.py` on import.
+
+## References
+
+1. TwitchViz - https://dl.acm.org/citation.cfm?id=2892427 - With implementation on [https://github.com/Ev3rlasting/TwitchViz-Twitch.tv-Chat-Room-Visualization]
+1. Twitch Messages Interface (live) - https://github.com/tmijs/tmi.js
+1. Downloading past messages - https://github.com/PetterKraabol/Twitch-Chat-Downloader 
+1. Download streams from Twitch.tv - http://docs.livestreamer.io/
+

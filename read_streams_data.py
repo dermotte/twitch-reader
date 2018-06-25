@@ -26,7 +26,7 @@ def get_data(file_name = "streams_2018-06-22 11:00:08.691693.json", ):
     for d in j_data:
         date_tmp = parser.parse(d["started_at"])
         td = date_poll - date_tmp
-        print("{},{},{},{}".format(d["viewer_count"], d["language"], d["started_at"], td.total_seconds()))
+        print("{},{},{},{}".format(d["viewer_count"], d["language"], d["started_at"], td.total_seconds()/60))
         if int(d["viewer_count"]) < 1: cnt_0 += 1
         cnt = cnt + 1
         game_id = d["game_id"]
@@ -39,15 +39,15 @@ def get_data(file_name = "streams_2018-06-22 11:00:08.691693.json", ):
     return (x,y, s, game_id)
 
 
-x1,y1, s1, g1 = get_data("streams_2018-06-22 11:00:08.691693.json")
-x2,y2, s2, g2 = get_data("streams_2018-06-22 13:03:23.134448.json")
-x3,y3, s3, g3 = get_data("streams_2018-06-22 13:05:20.724386.json")
-x4,y4, s4, g4 = get_data("streams_2018-06-22 13:20:39.873882.json")
+x1,y1, s1, g1 = get_data("streams_2018-06-25 15:49:35.028989.json")
+#x2,y2, s2, g2 = get_data("streams_2018-06-22 13:03:23.134448.json")
+#x3,y3, s3, g3 = get_data("streams_2018-06-22 13:05:20.724386.json")
+#x4,y4, s4, g4 = get_data("streams_2018-06-22 13:20:39.873882.json")
 
 #plt.plot(x1, s1, label=str(g1))
-plt.plot(x1, y1, label=str(g1)+ " Heroes of the Storm")
-plt.plot(x3, y3, label=str(g3)+ " World of Warcraft")
-plt.plot(x4, y4, label=str(g4)+ " Warframe")
+#plt.plot(x1, y1, label=str(g1)+ " Heroes of the Storm")
+#plt.plot(x3, y3, label=str(g3)+ " World of Warcraft")
+plt.plot(x1, y1, label=str(g1)+ " Warframe")
 plt.xlabel('rank')
 plt.ylabel('viewers')
 plt.title("Rank 2 ViewerCount on Twitch TV - 2018-06-22 lunch time")
