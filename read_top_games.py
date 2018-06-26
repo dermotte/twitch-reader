@@ -7,8 +7,6 @@ import requests
 
 from twitchreader.credentials import client_id
 
-print(client_id)
-
 """
     Calls twitch for getting the streams list of a particular game. 
     Sorted by view count. Result are stored as a list in a JSON file.
