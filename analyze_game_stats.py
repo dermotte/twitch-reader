@@ -44,10 +44,15 @@ for file_name in l:
 #            print("{}\t{}\t{}".format(d['viewers'], d['game']['name'], date_poll))
 
 
-df = pd.DataFrame(data, index=times)
-plt.plot(df['Fortnite'], label=" Warframe")
-plt.xlabel('rank')
-plt.ylabel('viewers')
-plt.title("Rank 2 ViewerCount on Twitch TV - 2018-06-22 lunch time")
+df = pd.DataFrame(data, index=[str(t.hour)+":"+str(t.minute) for t in times])
+# df = pd.DataFrame(data, index=times)
+plt.figure(figsize=(16,9))
+for i in range(10):
+    if games[i] not in "FreezeME":
+        plt.plot(df[games[i]], label=games[i])
+plt.xlabel('Hour in CEST')
+plt.ylabel('Number of viewers')
+plt.title("Development of viewers per game in 15 minute steps ")
+plt.xticks([str(t.hour)+":"+str(t.minute) for t in times], [str(t.hour) for t in times], rotation='vertical')
 plt.legend()
 plt.show()
