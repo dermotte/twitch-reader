@@ -56,3 +56,20 @@ plt.title("Development of viewers per game in 15 minute steps ")
 plt.xticks([str(t.hour)+":"+str(t.minute) for t in times], [str(t.hour) for t in times], rotation='vertical')
 plt.legend()
 plt.show()
+
+# get data for JavaScript chart.js ...
+for i in range(20):
+    if games[i] not in "FreezeME":
+        # print(games[i])
+        data_ = """
+            label: '{}',
+            fill: false,
+            backgroundColor: colors[currentColor],
+            borderColor: colors[currentColor++],
+            data: {},
+        """
+        d_ = "["
+        for v in df[games[i]].values:
+            d_ += str(v) + ", "
+        d_ = d_[:-2]+"]"
+        print("{" + data_.format(games[i].replace('\'', '\\\''), d_) + "},\n")
