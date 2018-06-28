@@ -45,15 +45,17 @@ for file_name in l:
 
 
 df = pd.DataFrame(data, index=[str(t.day) + "-" + str(t.hour)+":"+str(t.minute) for t in times])
+df['hour'] = [x[:x.index(':')] for x in df.index]  # per hour
+df_hour = df.groupby(['hour']).mean()  # per hour
 # df = pd.DataFrame(data, index=times)
 plt.figure(figsize=(16,9))
 for i in range(10):
     if games[i] not in "FreezeME":
-        plt.plot(df[games[i]], label=games[i])
+        plt.plot(df_hour[games[i]], label=games[i])
 plt.xlabel('Hour in CEST')
 plt.ylabel('Number of viewers')
 plt.title("Development of viewers per game in 15 minute steps ")
-plt.xticks(df.index, rotation='vertical')
+plt.xticks(df_hour.index, rotation='vertical')
 plt.legend()
 plt.show()
 
