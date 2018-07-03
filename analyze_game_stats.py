@@ -44,20 +44,21 @@ for file_name in l:
 #            print("{}\t{}\t{}".format(d['viewers'], d['game']['name'], date_poll))
 
 
-df = pd.DataFrame(data, index=[str(t.day) + "-" + str(t.hour)+":"+str(t.minute) for t in times])
+df = pd.DataFrame(data, index=["{:02d}".format(t.month) + "-{:02d}".format(t.day) + "-" + "{:02d}".format(t.hour)+":"+"{:02d}".format(t.minute) for t in times])
 df['hour'] = [x[:x.index(':')] for x in df.index]  # per hour
 df_hour = df.groupby(['hour']).mean()  # per hour
 # df = pd.DataFrame(data, index=times)
-plt.figure(figsize=(16,9))
+f = plt.figure(figsize=(16,9))
 for i in range(10):
     if games[i] not in "FreezeME":
         plt.plot(df_hour[games[i]], label=games[i])
-plt.xlabel('Hour in CEST')
+plt.xlabel('Hour in CEST (month-day-hour)')
 plt.ylabel('Number of viewers')
-plt.title("Development of viewers per game in 15 minute steps ")
+plt.title("Development of viewers per game in 15 minute steps (avg over full hours)")
 plt.xticks(df_hour.index, rotation='vertical')
 plt.legend()
 plt.show()
+f.savefig("foo.pdf", bbox_inches='tight')
 
 # get data for JavaScript chart.js ...
 out = "var chartData = ["
@@ -71,4 +72,4 @@ for i in range(11):
         d_ = d_[:-2]+"]"
         out += " {" + data_.format(games[i].replace('\'', '\\\''), d_) + "}, "
 print(out + "]")
-print("var labels = " + str([str(x[3:]).replace(":0", ":00") for x in df.index]) + "\n")
+print("var labels = " + str([str(x[3:]) for x in df.index]) + "\n")
