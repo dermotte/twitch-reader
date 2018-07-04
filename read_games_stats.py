@@ -16,7 +16,7 @@ from twitchreader.credentials import client_id
 """
 current_dt = datetime.datetime.utcnow()
 # preparing the file for output ...
-with codecs.open("output/games_stats_"+str(current_dt)+".json", "w", "utf-8") as file:
+with codecs.open("output_games/games_stats_"+str(current_dt)+".json", "w", "utf-8") as file:
 
     # client id needed to get access to Twitch
     # client_id = ... # see twitchreader.credentials.py

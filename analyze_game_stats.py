@@ -46,6 +46,8 @@ for file_name in l:
 
 df = pd.DataFrame(data, index=["{:02d}".format(t.month) + "-{:02d}".format(t.day) + "-" + "{:02d}".format(t.hour)+":"+"{:02d}".format(t.minute) for t in times])
 df['hour'] = [x[:x.index(':')] for x in df.index]  # per hour
+df['day'] = index=["{:02d}-{:02d}".format(t.month, t.day) for t in times]
+# df_hour = df.groupby(['day']).max()  # per hour
 df_hour = df.groupby(['hour']).mean()  # per hour
 # df = pd.DataFrame(data, index=times)
 f = plt.figure(figsize=(16,9))
