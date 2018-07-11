@@ -15,10 +15,10 @@ times = []
 data = {}
 
 # get all the games listed ...
-l = sorted(glob.glob('output/games_stats_*.json'))
+l = sorted(glob.glob('ou2/games_stats_*.json'))
 for file_name in l:
     file = codecs.open(file_name, "r", "utf-8")
-    file2date = (file_name[19:-1].split('.')[0] + 'Z').replace(' ', 'T')
+    file2date = (file_name[file_name.index('games_stats_')+len('games_stats_'):-1].split('.')[0] + 'Z').replace(' ', 'T')
     date_poll = parser.parse(file2date)
     times.append(date_poll)
     j_data = json.load(file)
@@ -31,7 +31,7 @@ for g in games:
 for file_name in l:
     games_visited = []
     file = codecs.open(file_name, "r", "utf-8")
-    file2date = (file_name[19:-1].split('.')[0] + 'Z').replace(' ', 'T')
+    file2date = (file_name[file_name.index('games_stats_')+len('games_stats_'):-1].split('.')[0] + 'Z').replace(' ', 'T')
     date_poll = parser.parse(file2date)
     j_data = json.load(file)
     for d in j_data:
@@ -46,15 +46,15 @@ for file_name in l:
 
 df = pd.DataFrame(data, index=["{:02d}".format(t.month) + "-{:02d}".format(t.day) + "-" + "{:02d}".format(t.hour)+":"+"{:02d}".format(t.minute) for t in times])
 df['hour'] = [x[:x.index(':')] for x in df.index]  # per hour
-df['day'] = index=["{:02d}-{:02d}".format(t.month, t.day) for t in times]
+# df['day'] = index=["{:02d}-{:02d}".format(t.month, t.day) for t in times]
 # df_hour = df.groupby(['day']).max()  # per hour
 df_hour = df.groupby(['hour']).mean()  # per hour
 # df = pd.DataFrame(data, index=times)
 f = plt.figure(figsize=(16,9))
-for i in range(10):
-    if games[i] not in "FreezeME":
-        plt.plot(df_hour[games[i]], label=games[i])
-plt.xlabel('Hour in CEST (month-day-hour)')
+for i in range(16):
+    # if games[i] not in "FreezeME":
+    plt.plot(df_hour[games[i]], label=games[i])
+plt.xlabel('Hour in UTC (month-day-hour)')
 plt.ylabel('Number of viewers')
 plt.title("Development of viewers per game in 15 minute steps (avg over full hours)")
 plt.xticks(df_hour.index, rotation='vertical')
